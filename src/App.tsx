@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router";
 import { Header, SearchOverlay, Sidebar } from "./components/ui";
 import type { Information, Notification } from "./components/ui";
 
-const notifications: Notification[] = [
+const Notifications: Notification[] = [
   {
     title: "Pesanan baru masuk",
     detail: "3 transaksi baru perlu dikonfirmasi.",
@@ -37,6 +38,75 @@ const Informations: Information[] = [
     category: "Docs",
   },
 ];
+
+interface PageConfig {
+  title: string;
+  detail: string;
+}
+
+const pages: Record<string, PageConfig> = {
+  home: {
+    title: "Home",
+    detail: "Ringkasan performa dan aktivitas terbaru tim Anda.",
+  },
+  analitics: {
+    title: "Analitics",
+    detail: "Pantau tren, metrik utama, dan insight bisnis secara real-time.",
+  },
+  projects: {
+    title: "Projects",
+    detail: "Kelola progres project, milestone, dan status tiap task.",
+  },
+  calendar: {
+    title: "Calendar",
+    detail: "Lihat jadwal meeting, deadline, dan agenda mingguan.",
+  },
+  reports: {
+    title: "Reports",
+    detail: "Akses laporan performa dan ekspor data untuk analisis lanjutan.",
+  },
+  workspace: {
+    title: "Workspace",
+    detail: "Atur struktur ruang kerja, folder, dan izin kolaborasi.",
+  },
+  teams: {
+    title: "Teams",
+    detail: "Kelola anggota tim, role, dan produktivitas lintas divisi.",
+  },
+  settings: {
+    title: "Settings",
+    detail: "Konfigurasi preferensi akun, notifikasi, dan integrasi sistem.",
+  },
+};
+
+function PageContent({ title, detail }: PageConfig) {
+  return (
+    <section className="px-6 py-6">
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h1 className="text-2xl font-bold text-slate-900">{title}</h1>
+        <p className="mt-2 text-slate-600">{detail}</p>
+      </div>
+    </section>
+  );
+}
+
+function NotFoundPage() {
+  return (
+    <section className="px-6 py-6 h-full flex items-center justify-center">
+      <div className="rounded-2xl border border-rose-200 bg-rose-50 px-8 py-10 text-center max-w-md w-full">
+        <p className="text-5xl font-extrabold text-rose-600 leading-none">
+          404
+        </p>
+        <h2 className="mt-3 text-xl font-semibold text-rose-900">
+          Page Not Found
+        </h2>
+        <p className="mt-2 text-sm text-rose-700">
+          Halaman yang Anda cari belum tersedia atau path tidak dikenali.
+        </p>
+      </div>
+    </section>
+  );
+}
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(
@@ -122,7 +192,7 @@ function App() {
           onSearchOpen={openSearch}
           messageOpen={messageOpen}
           onToggleMessages={toggleMessages}
-          notifications={notifications}
+          notifications={Notifications}
           infoOpen={infoOpen}
           onToggleInfo={toggleInformation}
           Informations={Informations}
@@ -132,6 +202,84 @@ function App() {
           userEmail="john.doe@example.com"
           onClosePanels={closePanels}
         />
+
+        <div className="flex-1 overflow-auto">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PageContent
+                  title={pages.home.title}
+                  detail={pages.home.detail}
+                />
+              }
+            />
+            <Route
+              path="/analitics"
+              element={
+                <PageContent
+                  title={pages.analitics.title}
+                  detail={pages.analitics.detail}
+                />
+              }
+            />
+            <Route
+              path="/projects"
+              element={
+                <PageContent
+                  title={pages.projects.title}
+                  detail={pages.projects.detail}
+                />
+              }
+            />
+            <Route
+              path="/calendar"
+              element={
+                <PageContent
+                  title={pages.calendar.title}
+                  detail={pages.calendar.detail}
+                />
+              }
+            />
+            <Route
+              path="/reports"
+              element={
+                <PageContent
+                  title={pages.reports.title}
+                  detail={pages.reports.detail}
+                />
+              }
+            />
+            <Route
+              path="/workspace"
+              element={
+                <PageContent
+                  title={pages.workspace.title}
+                  detail={pages.workspace.detail}
+                />
+              }
+            />
+            <Route
+              path="/teams"
+              element={
+                <PageContent
+                  title={pages.teams.title}
+                  detail={pages.teams.detail}
+                />
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <PageContent
+                  title={pages.settings.title}
+                  detail={pages.settings.detail}
+                />
+              }
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
       </main>
     </div>
   );
