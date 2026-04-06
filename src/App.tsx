@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router";
 import { Header, SearchOverlay, Sidebar } from "./components/ui";
 import type { Information, Notification } from "./components/ui";
+import { Dashboard } from "./pages";
 
 const Notifications: Notification[] = [
   {
@@ -208,10 +209,7 @@ function App() {
             <Route
               path="/"
               element={
-                <PageContent
-                  title={pages.home.title}
-                  detail={pages.home.detail}
-                />
+                <Dashboard />
               }
             />
             <Route

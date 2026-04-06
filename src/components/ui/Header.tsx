@@ -43,7 +43,7 @@ export function Header({
   onClosePanels,
 }: HeaderProps) {
   return (
-    <header className="w-full h-20 p-5 bg-white">
+    <header className="w-full h-20 p-5 bg-white border-b border-slate-200/80">
       <div className="relative w-full h-full flex items-center justify-end gap-3">
         {/* Search */}
         <button
