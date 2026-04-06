@@ -25,6 +25,7 @@ interface HeaderProps {
   onToggleProfile: () => void;
   userName: string;
   userEmail: string;
+  onProfile?: () => void;
   onClosePanels: () => void;
 }
 
@@ -40,10 +41,11 @@ export function Header({
   onToggleProfile,
   userName,
   userEmail,
+  onProfile,
   onClosePanels,
 }: HeaderProps) {
   return (
-    <header className="w-full h-20 p-5 bg-white border-b border-slate-200/80">
+    <header className="w-full h-20 p-5 bg-white">
       <div className="relative w-full h-full flex items-center justify-end gap-3">
         {/* Search */}
         <button
@@ -92,6 +94,7 @@ export function Header({
           open={profileOpen}
           userName={userName}
           userEmail={userEmail}
+          onProfile={onProfile}
         />
       </div>
 

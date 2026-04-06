@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router";
+import { Route, Routes, useNavigate } from "react-router";
 import { Header, SearchOverlay, Sidebar } from "./components/ui";
 import type { Information, Notification } from "./components/ui";
-import { Dashboard } from "./pages";
+import { Dashboard, Profile } from "./pages";
 
 const Notifications: Notification[] = [
   {
@@ -110,6 +110,7 @@ function NotFoundPage() {
 }
 
 function App() {
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(
     () => window.innerWidth >= 1024,
   );
@@ -201,17 +202,16 @@ function App() {
           onToggleProfile={toggleProfile}
           userName="John Doe"
           userEmail="john.doe@example.com"
+          onProfile={() => {
+            closePanels();
+            navigate("/profile");
+          }}
           onClosePanels={closePanels}
         />
 
         <div className="flex-1 overflow-auto">
           <Routes>
-            <Route
-              path="/"
-              element={
-                <Dashboard />
-              }
-            />
+            <Route path="/" element={<Dashboard />} />
             <Route
               path="/analitics"
               element={
@@ -275,6 +275,7 @@ function App() {
                 />
               }
             />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>

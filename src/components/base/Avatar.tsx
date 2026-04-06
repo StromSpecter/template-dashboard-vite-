@@ -1,7 +1,7 @@
 import { type HTMLAttributes } from "react";
 import { cn } from "../../lib/utils";
 
-type AvatarSize = "sm" | "md" | "lg";
+type AvatarSize = "sm" | "md" | "lg" | "xl";
 
 interface AvatarProps extends HTMLAttributes<HTMLDivElement> {
   src?: string;
@@ -14,6 +14,7 @@ const sizeStyles: Record<AvatarSize, string> = {
   sm: "w-7 h-7 text-xs",
   md: "w-10 h-10 text-sm",
   lg: "w-14 h-14 text-base",
+  xl: "w-24 h-24 text-lg",
 };
 
 export function Avatar({
