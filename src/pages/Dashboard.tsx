@@ -113,7 +113,15 @@ export function Dashboard() {
 
         {/* total income */}
         <div className="w-full h-full flex flex-col gap-2 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
-          <p className="text-lg font-medium text-slate-900">Total Income</p>
+          <div>
+            <p className="text-lg font-medium text-slate-900">Total Income</p>
+            <Badge variant="info" className="mt-1">
+              +15% from last month
+            </Badge>
+          </div>
+          <div className="text-3xl font-bold text-slate-900">
+            Rp. 350.000.000
+          </div>
         </div>
 
         {/* reminder */}
@@ -213,6 +221,33 @@ export function Dashboard() {
                 <div className="mt-2 flex justify-between text-xs text-slate-500">
                   <span>{project.progress}%</span>
                   <span>{project.members} members</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* activities */}
+        <div className="w-full h-full flex flex-col gap-2 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+          <div className="flex items-start justify-between">
+            <p className="text-lg font-medium text-slate-900">Activities</p>
+          </div>
+          <div className="w-full h-full flex flex-col gap-3 overflow-y-auto">
+            {activitiesData.map((activity, index) => (
+              <div
+                key={index}
+                className="flex flex-row gap-2 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition-all"
+              >
+                <div className="flex flex-col w-full">
+                  <div className="w-full flex items-center justify-between">
+                    <p className="font-medium text-slate-800">
+                      {activity.user}
+                    </p>
+                    <Badge variant="primary">{activity.team}</Badge>
+                  </div>
+                  <p className="text-sm text-slate-500 mt-1">
+                    {activity.action}
+                  </p>
                 </div>
               </div>
             ))}
