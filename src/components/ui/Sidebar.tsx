@@ -144,13 +144,13 @@ export function Sidebar({ open, onToggle, children }: SidebarProps) {
         <div className="relative min-h-14 flex items-center rounded-2xl bg-linear-to-r from-slate-900 to-slate-700 text-white px-3 overflow-hidden">
           <span className="absolute -top-8 -right-6 h-16 w-16 rounded-full bg-white/10" />
           <div className="min-w-10 h-10 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-sm font-bold">
-            DB
+            N
           </div>
           <div
             className={`ml-3 transition-all duration-300 ${open ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2 w-0"}`}
           >
             <p className="text-xs text-slate-200">Dashboard</p>
-            <h3 className="text-sm font-semibold tracking-wide">Insight Hub</h3>
+            <h3 className="text-sm font-semibold tracking-wide">Nexura Studio</h3>
           </div>
         </div>
 

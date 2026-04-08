@@ -14,7 +14,6 @@ const personalInfo = {
   email: "bK5o7@example.com",
   phone: "+1 (555) 123-4567",
   jobTitle: "Software Engineer",
-  address: "123 Main St, Anytown, USA",
 };
 
 const addressInfo = {
@@ -27,8 +26,8 @@ const addressInfo = {
 
 export function Profile() {
   return (
-    <div className="w-full h-fit pl-8 p-4 md:p-6">
-      <div className="w-full h-fit bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row">
+    <div className="w-full h-fit md:h-full pl-8 p-4 md:p-6">
+      <div className="w-full h-full bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row">
         {/* Sidebar */}
         <div className="w-full md:w-60 border-b md:border-b-0 md:border-r border-slate-200/80">
           <nav className="flex md:flex-col overflow-x-auto md:overflow-visible space-x-2 md:space-x-0 md:space-y-1 p-3 md:p-4">
@@ -115,12 +114,6 @@ export function Profile() {
                   <p className="text-sm text-gray-600">Job Title</p>
                   <p className="text-base font-medium text-gray-900">
                     {personalInfo.jobTitle}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">Address</p>
-                  <p className="text-base font-medium text-gray-900">
-                    {personalInfo.address}
                   </p>
                 </div>
               </div>

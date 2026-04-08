@@ -5,5 +5,6 @@ export { NotificationPanel } from "./NotificationPanel";
 export { InformationPanel } from "./InformationPanel";
 export { ProfilePanel } from "./ProfilePanel";
 export { Modal } from "./Modal";
+export { default as ChartLine } from "./ChartLine";
 
 export type { Notification, Information } from "./Header";
