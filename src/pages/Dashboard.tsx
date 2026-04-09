@@ -1,6 +1,12 @@
-import { RiArrowRightLine } from "react-icons/ri";
 import { Badge, Button } from "../components/base";
-import { ChartLine } from "../components/ui";
+import {
+  ChartLine,
+  StatCard,
+  IncomeCard,
+  ReminderCard,
+  TeamCard,
+  ProjectCard,
+} from "../components/ui";
 
 const headerData = [
   {
@@ -86,63 +92,35 @@ export function Dashboard() {
     <div className="w-full h-full">
       {/* layout mobile */}
       <div className="grid grid-cols-1 gap-4 pl-10 p-6 w-full h-full max-h-screen overflow-y-auto md:hidden">
-        {headerData.map((item, index) => (
-          <div
-            key={index}
-            className="group relative bg-white rounded-2xl border border-slate-200 shadow-sm hover:text-white hover:bg-linear-to-r from-slate-900 to-slate-700 w-full h-30 p-4 overflow-hidden"
-          >
-            <div className="flex items-start justify-between gap-2">
-              <p className="text-lg md:text-xl font-medium text-slate-900 group-hover:text-white warp-break-words">
-                {item.title}
-              </p>
-              <div className="flex items-center justify-center w-10 h-10 border border-slate-200/80 rounded-full shrink-0 bg-white group-hover:-rotate-45 transform transition-all duration-300">
-                <RiArrowRightLine
-                  size={18}
-                  className="text-slate-900 group-hover:text-slate-900"
-                />
-              </div>
-            </div>
-            <p className="text-2xl md:text-3xl font-bold text-slate-900 group-hover:text-white">
-              {item.value}
-            </p>
-            <p className="mt-1 text-sm text-slate-500 group-hover:text-white warp-break-words absolute bottom-0 left-0 p-4">
-              In the last 1 month
-            </p>
-          </div>
+        {/* Statistics Cards */}
+        {headerData.map((item) => (
+          <StatCard
+            key={item.title}
+            title={item.title}
+            value={item.value}
+            subtitle="In the last 1 month"
+          />
         ))}
 
-        {/* total income */}
+        {/* Total Income Card */}
+        <IncomeCard
+          income="Rp. 350.000.000"
+          badge={{
+            text: "+15% from last month",
+            variant: "info",
+          }}
+        />
+
+        {/* Reminder Card */}
         <div className="w-full h-full flex flex-col gap-2 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
-          <div>
-            <p className="text-lg font-medium text-slate-900">Total Income</p>
-            <Badge variant="info" className="mt-1">
-              +15% from last month
-            </Badge>
-          </div>
-          <div className="text-3xl font-bold text-slate-900">
-            Rp. 350.000.000
-          </div>
+          <ReminderCard
+            title="Meeting with team"
+            time="Today, 2:00 PM"
+            buttonLabel="Start Meeting"
+          />
         </div>
 
-        {/* reminder */}
-        <div className="w-full h-54 flex flex-col gap-2 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
-          <div className="flex items-start justify-between">
-            <p className="text-lg font-medium text-slate-900">Reminder</p>
-          </div>
-          <div className="w-full h-full flex flex-col justify-between">
-            <div>
-              <p className="text-3xl font-semibold text-slate-900">
-                Meeting with team
-              </p>
-              <p className="text-slate-500">Today, 2:00 PM</p>
-            </div>
-            <Button variant="primary" size="md" className="w-full rounded-full">
-              Start Meeting
-            </Button>
-          </div>
-        </div>
-
-        {/* team collaboration */}
+        {/* Team Collaboration Section */}
         <div className="w-full h-full flex flex-col gap-2 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-start justify-between">
             <p className="text-lg font-medium text-slate-900">
@@ -153,34 +131,18 @@ export function Dashboard() {
             </Button>
           </div>
           <div className="w-full h-full flex flex-col gap-3 overflow-y-auto">
-            {teamsData.map((team, index) => (
-              <div
-                key={index}
-                className="p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition-all"
-              >
-                <div className="flex items-center justify-between">
-                  <p className="font-medium text-slate-800">{team.name}</p>
-                  <span className="text-xs text-slate-500">
-                    {team.members} members
-                  </span>
-                </div>
-
-                <p className="text-sm text-slate-500 mt-1">{team.role}</p>
-
-                <div className="flex -space-x-2 mt-3">
-                  {[...Array(3)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-7 h-7 rounded-full bg-slate-300 border-2 border-white"
-                    />
-                  ))}
-                </div>
-              </div>
+            {teamsData.map((team) => (
+              <TeamCard
+                key={team.name}
+                name={team.name}
+                role={team.role}
+                members={team.members}
+              />
             ))}
           </div>
         </div>
 
-        {/* projects */}
+        {/* Projects Section */}
         <div className="w-full h-full flex flex-col gap-2 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-start justify-between">
             <p className="text-lg font-medium text-slate-900">Projects</p>
@@ -189,53 +151,27 @@ export function Dashboard() {
             </Button>
           </div>
           <div className="w-full h-full flex flex-col gap-3 overflow-y-auto">
-            {projectsData.map((project, index) => (
-              <div
-                key={index}
-                className="p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition-all"
-              >
-                <div className="flex items-center justify-between">
-                  <p className="font-medium text-slate-800">{project.name}</p>
-                  <span
-                    className={`text-xs px-2 py-1 rounded-full ${
-                      project.status === "Completed"
-                        ? "bg-green-100 text-green-600"
-                        : project.status === "Running"
-                          ? "bg-blue-100 text-blue-600"
-                          : "bg-yellow-100 text-yellow-600"
-                    }`}
-                  >
-                    {project.status}
-                  </span>
-                </div>
-
-                <div className="mt-2">
-                  <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-slate-900 transition-all"
-                      style={{ width: `${project.progress}%` }}
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-2 flex justify-between text-xs text-slate-500">
-                  <span>{project.progress}%</span>
-                  <span>{project.members} members</span>
-                </div>
-              </div>
+            {projectsData.map((project) => (
+              <ProjectCard
+                key={project.name}
+                name={project.name}
+                status={project.status as "Running" | "Pending" | "Completed"}
+                progress={project.progress}
+                members={project.members}
+              />
             ))}
           </div>
         </div>
 
-        {/* activities */}
+        {/* Activities Section */}
         <div className="w-full h-full flex flex-col gap-2 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-start justify-between">
             <p className="text-lg font-medium text-slate-900">Activities</p>
           </div>
           <div className="w-full h-full flex flex-col gap-3 overflow-y-auto">
-            {activitiesData.map((activity, index) => (
+            {activitiesData.map((activity) => (
               <div
-                key={index}
+                key={activity.user}
                 className="flex flex-row gap-2 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition-all"
               >
                 <div className="flex flex-col w-full">
@@ -257,31 +193,17 @@ export function Dashboard() {
 
       {/* layout tablet and laptop */}
       <div className="hidden md:grid grid-cols-4 grid-rows-5 gap-4 p-6 w-full h-full">
-        {headerData.map((item, index) => (
-          <div
-            key={index}
-            className="group relative bg-white rounded-2xl border border-slate-200 shadow-sm hover:text-white hover:bg-linear-to-r from-slate-900 to-slate-700 w-full h-full p-4 overflow-hidden"
-          >
-            <div className="flex items-start justify-between gap-2">
-              <p className="text-lg md:text-xl font-medium text-slate-900 group-hover:text-white warp-break-words">
-                {item.title}
-              </p>
-              <div className="flex items-center justify-center w-10 h-10 border border-slate-200/80 rounded-full shrink-0 bg-white group-hover:-rotate-45 transform transition-all duration-300">
-                <RiArrowRightLine
-                  size={18}
-                  className="text-slate-900 group-hover:text-slate-900"
-                />
-              </div>
-            </div>
-            <p className="text-2xl md:text-3xl font-bold text-slate-900 group-hover:text-white">
-              {item.value}
-            </p>
-            <p className="mt-1 text-sm text-slate-500 group-hover:text-white warp-break-words absolute bottom-0 left-0 p-4">
-              In the last 1 month
-            </p>
-          </div>
+        {/* Statistics Cards */}
+        {headerData.map((item) => (
+          <StatCard
+            key={item.title}
+            title={item.title}
+            value={item.value}
+            subtitle="In the last 1 month"
+          />
         ))}
 
+        {/* Income Chart */}
         <div className="w-full h-full flex flex-col gap-2 col-span-2 row-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
           <p className="text-lg font-medium text-slate-900">Total Income</p>
           <ChartLine
@@ -307,6 +229,7 @@ export function Dashboard() {
           />
         </div>
 
+        {/* Team Collaboration Section */}
         <div className="w-full h-full flex flex-col gap-2 col-span-2 row-span-2 col-start-1 row-start-4 bg-white rounded-2xl border border-slate-200 shadow-sm p-4">
           <div className="flex items-start justify-between">
             <p className="text-lg font-medium text-slate-900">
@@ -317,50 +240,27 @@ export function Dashboard() {
             </Button>
           </div>
           <div className="w-full h-full flex flex-col gap-3 overflow-y-auto pr-1">
-            {teamsData.map((team, index) => (
-              <div
-                key={index}
-                className="p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition-all"
-              >
-                <div className="flex items-center justify-between">
-                  <p className="font-medium text-slate-800">{team.name}</p>
-                  <span className="text-xs text-slate-500">
-                    {team.members} members
-                  </span>
-                </div>
-
-                <p className="text-sm text-slate-500 mt-1">{team.role}</p>
-
-                <div className="flex -space-x-2 mt-3">
-                  {[...Array(3)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-7 h-7 rounded-full bg-slate-300 border-2 border-white"
-                    />
-                  ))}
-                </div>
-              </div>
+            {teamsData.map((team) => (
+              <TeamCard
+                key={team.name}
+                name={team.name}
+                role={team.role}
+                members={team.members}
+              />
             ))}
           </div>
         </div>
 
+        {/* Reminder Card */}
         <div className="w-full h-full flex flex-col gap-2 p-4 row-span-2 col-start-3 row-start-2 bg-white rounded-2xl border border-slate-200 shadow-sm">
-          <div className="flex items-start justify-between">
-            <p className="text-lg font-medium text-slate-900">Reminder</p>
-          </div>
-          <div className="w-full h-full flex flex-col justify-between">
-            <div>
-              <p className="text-3xl font-semibold text-slate-900">
-                Meeting with team
-              </p>
-              <p className="text-slate-500">Today, 2:00 PM</p>
-            </div>
-            <Button variant="primary" size="md" className="w-full rounded-full">
-              Start Meeting
-            </Button>
-          </div>
+          <ReminderCard
+            title="Meeting with team"
+            time="Today, 2:00 PM"
+            buttonLabel="Start Meeting"
+          />
         </div>
 
+        {/* Projects Section */}
         <div className="w-full h-full flex flex-col gap-2 p-4 row-span-2 col-start-4 row-start-2 bg-white rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-start justify-between">
             <p className="text-lg font-medium text-slate-900">Projects</p>
@@ -369,52 +269,27 @@ export function Dashboard() {
             </Button>
           </div>
           <div className="w-full h-full flex flex-col gap-3 overflow-y-auto">
-            {projectsData.map((project, index) => (
-              <div
-                key={index}
-                className="p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition-all"
-              >
-                <div className="flex items-center justify-between">
-                  <p className="font-medium text-slate-800">{project.name}</p>
-                  <span
-                    className={`text-xs px-2 py-1 rounded-full ${
-                      project.status === "Completed"
-                        ? "bg-green-100 text-green-600"
-                        : project.status === "Running"
-                          ? "bg-blue-100 text-blue-600"
-                          : "bg-yellow-100 text-yellow-600"
-                    }`}
-                  >
-                    {project.status}
-                  </span>
-                </div>
-
-                <div className="mt-2">
-                  <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-slate-900 transition-all"
-                      style={{ width: `${project.progress}%` }}
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-2 flex justify-between text-xs text-slate-500">
-                  <span>{project.progress}%</span>
-                  <span>{project.members} members</span>
-                </div>
-              </div>
+            {projectsData.map((project) => (
+              <ProjectCard
+                key={project.name}
+                name={project.name}
+                status={project.status as "Running" | "Pending" | "Completed"}
+                progress={project.progress}
+                members={project.members}
+              />
             ))}
           </div>
         </div>
 
+        {/* Activities Section */}
         <div className="w-full h-full flex flex-col gap-2 p-4 row-span-2 col-span-2 col-start-3 row-start-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-start justify-between">
             <p className="text-lg font-medium text-slate-900">Activities</p>
           </div>
           <div className="w-full h-full flex flex-col gap-3 overflow-y-auto">
-            {activitiesData.map((activity, index) => (
+            {activitiesData.map((activity) => (
               <div
-                key={index}
+                key={activity.user}
                 className="flex flex-row gap-2 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 transition-all"
               >
                 <div className="border-r pr-4 w-1/4">
